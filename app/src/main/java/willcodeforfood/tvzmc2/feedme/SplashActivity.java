@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private long seconds = 3000;
+    private static final int SECONDS = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,6 @@ public class SplashActivity extends AppCompatActivity {
         };
 
         Timer timer = new Timer();
-        timer.schedule(task, seconds);
+        timer.schedule(task, SECONDS);
     }
 }

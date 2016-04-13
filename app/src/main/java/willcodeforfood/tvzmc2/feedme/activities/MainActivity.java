@@ -1,10 +1,12 @@
 package willcodeforfood.tvzmc2.feedme.activities;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.firebase.client.Firebase;
 
@@ -45,6 +47,56 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new SpacesItemDecoration(4));
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
+        private final int space;
+
+        public SpacesItemDecoration(int space) {
+            this.space = space;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
+            int childPosition = parent.getChildLayoutPosition(view);
+            int lastChildPosition = parent.getAdapter().getItemCount() - 1;
+            boolean isLeft = childPosition % 2 == 0;
+
+            // is top item
+            if (childPosition == 0 || childPosition == 1) {
+                if(isLeft)
+                    outRect.right = space;
+                else
+                    outRect.left = space;
+
+                outRect.top = 0;
+                outRect.bottom = space;
+            }
+            // is bottom item
+            else if (childPosition == lastChildPosition || childPosition == lastChildPosition -1) {
+                if(isLeft)
+                    outRect.right = space;
+                else
+                    outRect.left = space;
+
+                outRect.top = space;
+                outRect.bottom = 0;
+            }
+            // is positioned left in the grid
+            else if(isLeft) {
+                outRect.right = space;
+                outRect.top = space;
+                outRect.bottom = space;
+            }
+            // is positioned right in the grid
+            else  {
+                outRect.left = space;
+                outRect.top = space;
+                outRect.bottom = space;
+            }
+        }
     }
 }

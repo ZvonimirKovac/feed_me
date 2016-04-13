@@ -6,4 +6,8 @@
     <!-- MainActivity -->
     <dimen name="category_text_view_font_size">18sp</dimen>
     <dimen name="category_text_view_padding_vertical">12dp</dimen>
+
+    <!-- category item -->
+    <dimen name="item_height">180dp</dimen>
+
 </resources>

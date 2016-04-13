@@ -4,7 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <!-- MainActivity -->
-    <dimen name="category_text_view_font_size">22sp</dimen>
+    <dimen name="category_text_view_font_size">18sp</dimen>
     <dimen name="category_text_view_padding_vertical">12dp</dimen>
-
 </resources>

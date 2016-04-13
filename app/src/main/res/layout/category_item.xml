@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/glavna_jela"
+                android:layout_height="200dp"
                 android:orientation="vertical">
 
     <TextView
@@ -11,10 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/category_text_view_background"
-        android:gravity="center_horizontal"
+        android:gravity="center_horizontal|bottom"
         android:paddingBottom="@dimen/category_text_view_padding_vertical"
         android:paddingTop="@dimen/category_text_view_padding_vertical"
-        android:text="Glavna jela"
         android:textColor="@color/category_text_view_textColor"
         android:textSize="@dimen/category_text_view_font_size"
         android:textStyle="bold"/>

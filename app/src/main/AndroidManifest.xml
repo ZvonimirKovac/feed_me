@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="willcodeforfood.tvzmc2.feedme" >
+          xmlns:tools="http://schemas.android.com/tools"
+          package="willcodeforfood.tvzmc2.feedme">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"

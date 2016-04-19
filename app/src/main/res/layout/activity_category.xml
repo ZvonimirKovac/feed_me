@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#263238">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/categoryTitle"
+        android:padding="@dimen/category_title_padding"
+        android:textSize="@dimen/category_title_size"
+        android:textStyle="bold"
+        android:textColor="@color/category_text_view_textColor"
+        android:gravity="center_horizontal" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/categorRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/categoryTitle"/>
 
 </RelativeLayout>

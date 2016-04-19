@@ -7,35 +7,36 @@
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_margin="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="20dp"
         android:clickable="true"
         android:id="@+id/card_view"
         android:layout_width="fill_parent"
-        android:layout_height="250dp"
-        card_view:cardCornerRadius="4dp">
+        android:layout_height="200dp"
+        card_view:cardCornerRadius="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/placeholder_category"
             android:scaleType="fitXY"
-            android:id="@+id/imageView"
-            android:layout_gravity="top"/>
+            android:id="@+id/recipeImage"
+
+           />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Naziv jela"
-            android:textSize="30sp"
+            android:textSize="@dimen/category_text_view_font_size"
+            android:padding="@dimen/category_title_padding"
             android:textStyle="bold|italic"
             android:background="@color/category_text_view_background"
+            android:textColor="@color/category_text_view_textColor"
             android:gravity="center_horizontal"
             android:layout_gravity="bottom"
-             />
+            android:id="@+id/recipeNameTextView" />
 
     </android.support.v7.widget.CardView>
-
-
 
 
 </RelativeLayout>

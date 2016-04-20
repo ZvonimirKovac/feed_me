@@ -9,6 +9,10 @@ public class Recipe {
     private List<String> ingredients;
     private List<String> instructions;
 
+    public Recipe(){
+
+    }
+
     public List<String> getInstructions() {
         return instructions;
     }
@@ -23,10 +27,6 @@ public class Recipe {
 
     public void setIngredients(List<String> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public Recipe(){
-
     }
 
     public String getBase64EncodedImage() {

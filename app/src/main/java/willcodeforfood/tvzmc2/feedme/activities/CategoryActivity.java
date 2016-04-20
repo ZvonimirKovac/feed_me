@@ -3,6 +3,7 @@ package willcodeforfood.tvzmc2.feedme.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
@@ -52,7 +53,7 @@ public class CategoryActivity extends AppCompatActivity {
                 RecipeAdapter.RecipeViewHolder.class,
                 mFirebaseRef
         );
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this,1));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mRecipeAdapter);
 

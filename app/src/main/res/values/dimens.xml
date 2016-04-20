@@ -13,5 +13,8 @@
     <!-- CategoryActivity -->
     <dimen name="category_title_padding">4dp</dimen>
     <dimen name="category_title_size">30sp</dimen>
+    <dimen name="card_view_left_margin">30dp</dimen>
+    <dimen name="card_view_right_margin">30dp</dimen>
+    <dimen name="card_view_top_margin">20dp</dimen>
 
 </resources>

@@ -1,6 +1,7 @@
 package willcodeforfood.tvzmc2.feedme.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,9 +20,12 @@ import com.firebase.ui.FirebaseRecyclerAdapter;
 import java.io.IOException;
 
 import willcodeforfood.tvzmc2.feedme.R;
+import willcodeforfood.tvzmc2.feedme.activities.CategoryActivity;
 import willcodeforfood.tvzmc2.feedme.models.Category;
 
 public class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryAdapter.CategoryViewHolder> {
+
+    public static final String CATEGORY_NAME = "willcodeforfood.tvzmc2.feedme.adapters.CATEGORY_NAME";
 
     public CategoryAdapter(Class<Category> modelClass, int modelLayout, Class<CategoryViewHolder> viewHolderClass, Firebase ref) {
         super(modelClass, modelLayout, viewHolderClass, ref);
@@ -57,10 +61,16 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryA
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Clicked " + nameView.getText(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Clicked " + nameView.getText(), Toast.LENGTH_SHORT).show();
+                Intent clicked = new Intent(nameView.getContext(),CategoryActivity.class);
+                clicked.putExtra(CATEGORY_NAME, nameView.getText());
+                nameView.getContext().startActivity(clicked);
+
                 }
             });
         }
 
     }
+
+
 }

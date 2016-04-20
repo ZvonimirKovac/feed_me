@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- MainActivity-->
     <color name="category_text_view_background">#8022515b</color>
     <color name="category_text_view_textColor">#cfd8dc</color>
+
+
+    <!-- CategoryActivity -->
+    <color name="category_activity_background">#263238</color>
 
 </resources>

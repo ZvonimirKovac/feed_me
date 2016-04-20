@@ -13,5 +13,6 @@
     <color name="ingredient_text_view_background">#009688</color>
     <color name="instruction_text_view_background">#4caf50</color>
     <color name="recipe_screen_text_color">#cdeae8</color>
+    <color name="recipe_screen_background">#eceff1</color>
 
 </resources>

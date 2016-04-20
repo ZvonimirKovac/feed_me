@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFirebase() {
-        Firebase.setAndroidContext(this);
-        Firebase.getDefaultConfig().setPersistenceEnabled(true);
         mFirebaseRef = new Firebase(getString(R.string.firebase_categories_url));
     }
 

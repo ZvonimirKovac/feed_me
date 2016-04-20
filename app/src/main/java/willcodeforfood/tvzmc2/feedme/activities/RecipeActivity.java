@@ -28,8 +28,9 @@ import willcodeforfood.tvzmc2.feedme.models.Recipe;
 
 public class RecipeActivity extends AppCompatActivity {
     private Firebase mFirebase;
-    private Recipe recipe;
+    private Recipe mRecipe;
 
+    private TextView mTextViewName;
     private ImageView mRecipeImage;
     private ImageButton mButtonFavorites;
     private LinearLayout mIngredientsHolder;
@@ -40,8 +41,9 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe);
 
-        recipe = (Recipe) getIntent().getSerializableExtra(RecipeAdapter.SELECTED_RECIPE);
+        mRecipe = (Recipe) getIntent().getSerializableExtra(RecipeAdapter.SELECTED_RECIPE);
 
+        mTextViewName = (TextView) findViewById(R.id.recipeName);
         mRecipeImage = (ImageView) findViewById(R.id.recipeScreenImage);
         mButtonFavorites = (ImageButton) findViewById(R.id.favoritesButton);
         mIngredientsHolder = (LinearLayout) findViewById(R.id.ingredientsHolder);
@@ -52,15 +54,15 @@ public class RecipeActivity extends AppCompatActivity {
 
     private void initFirebase() {
         mFirebase = new Firebase("https://feedmetvzmc2.firebaseio.com/recipesDetails/" +
-                recipe.getCategory() + "/" + recipe.getRecipeName());
+                mRecipe.getCategory() + "/" + mRecipe.getRecipeName());
         mFirebase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> indicator = new GenericTypeIndicator<List<String>>() {
                 };
                 Recipe tempRecipe = dataSnapshot.getValue(Recipe.class);
-                recipe.setIngredients(tempRecipe.getIngredients());
-                recipe.setInstructions(tempRecipe.getInstructions());
+                mRecipe.setIngredients(tempRecipe.getIngredients());
+                mRecipe.setInstructions(tempRecipe.getInstructions());
 
                 initView();
             }
@@ -75,7 +77,7 @@ public class RecipeActivity extends AppCompatActivity {
     private void initView() {
         try {
             Glide.with(this)
-                    .load(Base64.decode(recipe.getBase64EncodedImage()))
+                    .load(Base64.decode(mRecipe.getBase64EncodedImage()))
                     .crossFade()
                     .placeholder(R.drawable.placeholder_category)
                     .into(mRecipeImage);
@@ -84,7 +86,9 @@ public class RecipeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        for (String ingredient : recipe.getIngredients()) {
+        mTextViewName.setText(mRecipe.getRecipeName());
+
+        for (String ingredient : mRecipe.getIngredients()) {
             TextView tv = new TextView(this);
             tv.setText(ingredient);
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -99,7 +103,7 @@ public class RecipeActivity extends AppCompatActivity {
             mIngredientsHolder.addView(tv);
         }
 
-        for (String instruction : recipe.getInstructions()) {
+        for (String instruction : mRecipe.getInstructions()) {
             TextView tv = new TextView(this);
             tv.setText(instruction);
             tv.setGravity(Gravity.CENTER_HORIZONTAL);

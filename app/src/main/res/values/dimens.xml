@@ -20,5 +20,6 @@
     <!-- RecipeActivity -->
     <dimen name="holder_padding_vertical">12dp</dimen>
     <dimen name="holder_padding_horizontal">20dp</dimen>
+    <dimen name="star_image_margin">8dp</dimen>
 
 </resources>

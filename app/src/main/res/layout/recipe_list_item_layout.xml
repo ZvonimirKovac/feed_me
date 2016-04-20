@@ -11,7 +11,7 @@
         android:layout_marginRight="@dimen/card_view_right_margin"
         android:layout_marginTop="@dimen/card_view_top_margin"
         android:clickable="true"
-        android:id="@+id/card_view"
+        android:id="@+id/cardView"
         android:layout_width="fill_parent"
         android:layout_height="200dp"
         card_view:cardCornerRadius="10dp">

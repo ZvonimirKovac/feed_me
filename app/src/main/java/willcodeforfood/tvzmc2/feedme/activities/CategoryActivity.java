@@ -23,8 +23,6 @@ public class CategoryActivity extends AppCompatActivity {
     private String categoryTitle;
     private TextView mTitleTextView;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

@@ -6,5 +6,7 @@
     <string name="message">Main Screen</string>
     <string name="firebase_categories_url">https://feedmetvzmc2.firebaseio.com/categories</string>
     <string name="logo">logo</string>
+    <string name="ingredients">Sastojci</string>
+    <string name="instructions">Priprema</string>
 
 </resources>

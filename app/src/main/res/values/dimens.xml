@@ -17,4 +17,8 @@
     <dimen name="card_view_right_margin">30dp</dimen>
     <dimen name="card_view_top_margin">20dp</dimen>
 
+    <!-- RecipeActivity -->
+    <dimen name="holder_padding_vertical">12dp</dimen>
+    <dimen name="holder_padding_horizontal">20dp</dimen>
+
 </resources>

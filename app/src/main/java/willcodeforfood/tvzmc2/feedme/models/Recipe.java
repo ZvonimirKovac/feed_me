@@ -1,10 +1,12 @@
 package willcodeforfood.tvzmc2.feedme.models;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable {
     private String recipeName;
+    private String category;
     private String base64EncodedImage;
     private List<String> ingredients;
     private List<String> instructions;
@@ -43,5 +45,13 @@ public class Recipe {
 
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

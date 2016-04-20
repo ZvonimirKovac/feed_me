@@ -46,6 +46,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     private void initView(){
         mRecipeAdapter = new RecipeAdapter(
+                categoryTitle,
                 Recipe.class,
                 R.layout.recipe_list_item_layout,
                 RecipeAdapter.RecipeViewHolder.class,

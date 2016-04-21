@@ -1,101 +1,110 @@
 package willcodeforfood.tvzmc2.feedme.activities;
 
-
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
-import android.widget.ProgressBar;
-
-import com.firebase.client.Firebase;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import willcodeforfood.tvzmc2.feedme.R;
-import willcodeforfood.tvzmc2.feedme.adapters.CategoryAdapter;
-import willcodeforfood.tvzmc2.feedme.models.Category;
+import willcodeforfood.tvzmc2.feedme.fragments.FavoritesFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.MainFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.MyRecipesFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.NewRecipeFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.ShoppingListFragment;
 
-
-public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private Firebase mFirebaseRef;
-    private CategoryAdapter mAdapter;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private MainFragment mMainFragment;
+    private FavoritesFragment mFavoritesFragment;
+    private MyRecipesFragment mMyRecipesFragment;
+    private NewRecipeFragment mNewRecipeFragment;
+    private ShoppingListFragment mShoppingListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        initFirebase();
-        initView();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        mMainFragment = new MainFragment();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_container, mMainFragment, "MAIN_FRAGMENT")
+                .commit();
     }
 
-    private void initFirebase() {
-        mFirebaseRef = new Firebase(getString(R.string.firebase_categories_url));
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
-    private void initView() {
-        mAdapter = new CategoryAdapter(
-                Category.class,
-                R.layout.category_item,
-                CategoryAdapter.CategoryViewHolder.class,
-                mFirebaseRef);
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(4));
-        recyclerView.setAdapter(mAdapter);
-    }
-
-    private class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-        private final int space;
-
-        public SpacesItemDecoration(int space) {
-            this.space = space;
+        if (id == R.id.nav_categories) {
+            updateFragment(new MainFragment());
+        }
+        else if(id == R.id.nav_favorites) {
+            updateFragment(new FavoritesFragment());
+        }
+        else if(id == R.id.nav_my_recipes) {
+            updateFragment(new MyRecipesFragment());
+        }
+        else if(id == R.id.nav_new_recipe) {
+            updateFragment(new NewRecipeFragment());
+        }
+        else if(id == R.id.nav_shooping_list) {
+            updateFragment(new ShoppingListFragment());
+        }
+        else if (id == R.id.nav_share) {
+            Toast.makeText(this, "Share clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_settings) {
+            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_about) {
+            Toast.makeText(this, "About clicked", Toast.LENGTH_SHORT).show();
         }
 
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
-            int childPosition = parent.getChildLayoutPosition(view);
-            int lastChildPosition = parent.getAdapter().getItemCount() - 1;
-            boolean isLeft = childPosition % 2 == 0;
+        return true;
+    }
 
-            // is top item
-            if (childPosition == 0 || childPosition == 1) {
-                if(isLeft)
-                    outRect.right = space;
-                else
-                    outRect.left = space;
-
-                outRect.top = 0;
-                outRect.bottom = space;
-            }
-            // is bottom item
-            else if (childPosition == lastChildPosition || childPosition == lastChildPosition -1) {
-                if(isLeft)
-                    outRect.right = space;
-                else
-                    outRect.left = space;
-
-                outRect.top = space;
-                outRect.bottom = 0;
-            }
-            // is positioned left in the grid
-            else if(isLeft) {
-                outRect.right = space;
-                outRect.top = space;
-                outRect.bottom = space;
-            }
-            // is positioned right in the grid
-            else  {
-                outRect.left = space;
-                outRect.top = space;
-                outRect.bottom = space;
-            }
-        }
+    private void updateFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, fragment)
+                .commit();
     }
 }

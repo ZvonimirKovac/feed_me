@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_category"
+            android:title="Kategorije"/>
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@android:drawable/star_big_off"
+            android:title="Omiljeni recepti"/>
+        <item
+            android:id="@+id/nav_my_recipes"
+            android:icon="@drawable/ic_my_recipes"
+            android:title="Moji recepti"/>
+        <item
+            android:id="@+id/nav_new_recipe"
+            android:icon="@drawable/ic_new_recipe"
+            android:title="Novi recept"/>
+        <item
+            android:id="@+id/nav_shooping_list"
+            android:icon="@drawable/ic_shopping_list"
+            android:title="Lista za kupovinu"/>
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share"
+                android:title="Share"/>
+        </menu>
+    </item>
+
+    <item android:title="Application">
+        <menu>
+
+            <item android:id="@+id/nav_settings"
+                  android:icon="@drawable/ic_settings"
+                  android:title="Settings"/>
+
+
+            <item android:id="@+id/nav_about"
+                  android:icon="@drawable/ic_about"
+                  android:title="About"/>
+        </menu>
+
+    </item>
+
+</menu>

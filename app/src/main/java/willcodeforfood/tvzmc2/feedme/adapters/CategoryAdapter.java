@@ -62,15 +62,12 @@ public class CategoryAdapter extends FirebaseRecyclerAdapter<Category, CategoryA
                 @Override
                 public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Clicked " + nameView.getText(), Toast.LENGTH_SHORT).show();
-                Intent clicked = new Intent(nameView.getContext(),CategoryActivity.class);
+                Intent clicked = new Intent(nameView.getContext(), CategoryActivity.class);
                 clicked.putExtra(CATEGORY_NAME, nameView.getText());
                 nameView.getContext().startActivity(clicked);
 
                 }
             });
         }
-
     }
-
-
 }

@@ -48,6 +48,7 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.inflateMenu(R.menu.menu_category_drawer);
 
         String categoryTitle = getIntent().getStringExtra(CategoryAdapter.CATEGORY_NAME);
         getSupportFragmentManager()

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.inflateMenu(R.menu.menu_main_drawer);
 
         mMainFragment = new MainFragment();
         getSupportFragmentManager()

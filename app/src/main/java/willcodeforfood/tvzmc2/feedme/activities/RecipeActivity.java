@@ -1,121 +1,109 @@
 package willcodeforfood.tvzmc2.feedme.activities;
 
-import android.graphics.Typeface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.GenericTypeIndicator;
-import com.firebase.client.ValueEventListener;
-import com.firebase.client.utilities.Base64;
-
-import java.io.IOException;
-import java.util.List;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import willcodeforfood.tvzmc2.feedme.R;
 import willcodeforfood.tvzmc2.feedme.adapters.RecipeAdapter;
+import willcodeforfood.tvzmc2.feedme.fragments.FavoritesFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.MainFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.MyRecipesFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.NewRecipeFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.RecipeFragment;
+import willcodeforfood.tvzmc2.feedme.fragments.ShoppingListFragment;
 import willcodeforfood.tvzmc2.feedme.models.Recipe;
 
-public class RecipeActivity extends AppCompatActivity {
-    private Firebase mFirebase;
-    private Recipe mRecipe;
-
-    private TextView mTextViewName;
-    private ImageView mRecipeImage;
-    private ImageButton mButtonFavorites;
-    private LinearLayout mIngredientsHolder;
-    private LinearLayout mInstructionsHolder;
+public class RecipeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe);
+        setContentView(R.layout.activity_navigation);
 
-        mRecipe = (Recipe) getIntent().getSerializableExtra(RecipeAdapter.SELECTED_RECIPE);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        mTextViewName = (TextView) findViewById(R.id.recipeName);
-        mRecipeImage = (ImageView) findViewById(R.id.recipeScreenImage);
-        mButtonFavorites = (ImageButton) findViewById(R.id.favoritesButton);
-        mIngredientsHolder = (LinearLayout) findViewById(R.id.ingredientsHolder);
-        mInstructionsHolder = (LinearLayout) findViewById(R.id.instructionsHolder);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        initFirebase();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.inflateMenu(R.menu.menu_recipe_drawer);
+
+        Recipe recipe = (Recipe) getIntent().getSerializableExtra(RecipeAdapter.SELECTED_RECIPE);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.main_container, RecipeFragment.newInstance(recipe), "RECIPE_FRAGMENT")
+                .commit();
     }
 
-    private void initFirebase() {
-        mFirebase = new Firebase("https://feedmetvzmc2.firebaseio.com/recipesDetails/" +
-                mRecipe.getCategory() + "/" + mRecipe.getRecipeName());
-        mFirebase.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                GenericTypeIndicator<List<String>> indicator = new GenericTypeIndicator<List<String>>() {
-                };
-                Recipe tempRecipe = dataSnapshot.getValue(Recipe.class);
-                mRecipe.setIngredients(tempRecipe.getIngredients());
-                mRecipe.setInstructions(tempRecipe.getInstructions());
-
-                initView();
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 
-    private void initView() {
-        try {
-            Glide.with(this)
-                    .load(Base64.decode(mRecipe.getBase64EncodedImage()))
-                    .crossFade()
-                    .placeholder(R.drawable.placeholder_category)
-                    .into(mRecipeImage);
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_categories) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        else if(id == R.id.nav_favorites) {
+            updateFragment(new FavoritesFragment());
+        }
+        else if(id == R.id.nav_my_recipes) {
+            updateFragment(new MyRecipesFragment());
+        }
+        else if(id == R.id.nav_new_recipe) {
+            updateFragment(new NewRecipeFragment());
+        }
+        else if(id == R.id.nav_shooping_list) {
+            updateFragment(new ShoppingListFragment());
+        }
+        else if (id == R.id.nav_share) {
+            Toast.makeText(this, "Share clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_settings) {
+            Toast.makeText(this, "Settings clicked", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.nav_about) {
+            Toast.makeText(this, "About clicked", Toast.LENGTH_SHORT).show();
         }
 
-        mTextViewName.setText(mRecipe.getRecipeName());
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
 
-        for (String ingredient : mRecipe.getIngredients()) {
-            TextView tv = new TextView(this);
-            tv.setText(ingredient);
-            tv.setGravity(Gravity.CENTER_HORIZONTAL);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(4, 8, 4, 8);
-            tv.setLayoutParams(params);
-            tv.setBackground(ContextCompat.getDrawable(this, R.drawable.ingredient_rounded_background));
-            tv.setTextColor(ContextCompat.getColor(this, R.color.recipe_screen_text_color));
-            tv.setTypeface(Typeface.DEFAULT_BOLD);
-            
-            mIngredientsHolder.addView(tv);
-        }
+        return true;
+    }
 
-        for (String instruction : mRecipe.getInstructions()) {
-            TextView tv = new TextView(this);
-            tv.setText(instruction);
-            tv.setGravity(Gravity.CENTER_HORIZONTAL);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(4, 8, 4, 8);
-            tv.setBackground(ContextCompat.getDrawable(this, R.drawable.instruction_rounded_background));
-            tv.setLayoutParams(params);
-            tv.setTextColor(ContextCompat.getColor(this, R.color.recipe_screen_text_color));
-            tv.setTypeface(Typeface.DEFAULT_BOLD);
-
-            mInstructionsHolder.addView(tv);
-        }
+    private void updateFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.main_container, fragment)
+                .commit();
     }
 }

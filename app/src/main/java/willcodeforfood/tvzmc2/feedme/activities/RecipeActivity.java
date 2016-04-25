@@ -1,6 +1,5 @@
 package willcodeforfood.tvzmc2.feedme.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 import willcodeforfood.tvzmc2.feedme.R;
 import willcodeforfood.tvzmc2.feedme.adapters.RecipeAdapter;
 import willcodeforfood.tvzmc2.feedme.fragments.FavoritesFragment;
-import willcodeforfood.tvzmc2.feedme.fragments.MainFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.MyRecipesFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.NewRecipeFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.RecipeFragment;
@@ -23,6 +21,7 @@ import willcodeforfood.tvzmc2.feedme.fragments.ShoppingListFragment;
 import willcodeforfood.tvzmc2.feedme.models.Recipe;
 
 public class RecipeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private Recipe mRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +42,10 @@ public class RecipeActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.inflateMenu(R.menu.menu_recipe_drawer);
 
-        Recipe recipe = (Recipe) getIntent().getSerializableExtra(RecipeAdapter.SELECTED_RECIPE);
+        mRecipe = (Recipe) getIntent().getSerializableExtra(RecipeAdapter.SELECTED_RECIPE);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_container, RecipeFragment.newInstance(recipe), "RECIPE_FRAGMENT")
+                .add(R.id.main_container, RecipeFragment.newInstance(mRecipe), "RECIPE_FRAGMENT")
                 .commit();
     }
 
@@ -66,11 +65,8 @@ public class RecipeActivity extends AppCompatActivity implements NavigationView.
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_categories) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+        if (id == R.id.nav_recipe) {
+            updateFragment(RecipeFragment.newInstance(mRecipe));
         }
         else if(id == R.id.nav_favorites) {
             updateFragment(new FavoritesFragment());

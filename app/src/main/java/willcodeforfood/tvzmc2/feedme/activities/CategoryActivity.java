@@ -7,29 +7,21 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.firebase.client.Firebase;
 
 import willcodeforfood.tvzmc2.feedme.R;
 import willcodeforfood.tvzmc2.feedme.adapters.CategoryAdapter;
-import willcodeforfood.tvzmc2.feedme.adapters.RecipeAdapter;
 import willcodeforfood.tvzmc2.feedme.fragments.CategoryFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.FavoritesFragment;
-import willcodeforfood.tvzmc2.feedme.fragments.MainFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.MyRecipesFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.NewRecipeFragment;
 import willcodeforfood.tvzmc2.feedme.fragments.ShoppingListFragment;
-import willcodeforfood.tvzmc2.feedme.models.Recipe;
 
 
 public class CategoryActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private String categoryTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +42,7 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.inflateMenu(R.menu.menu_category_drawer);
 
-        String categoryTitle = getIntent().getStringExtra(CategoryAdapter.CATEGORY_NAME);
+        categoryTitle = getIntent().getStringExtra(CategoryAdapter.CATEGORY_NAME);
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(R.id.main_container, CategoryFragment.newInstance(categoryTitle), "CATEGORY_FRAGMENT")
@@ -73,8 +65,8 @@ public class CategoryActivity extends AppCompatActivity implements NavigationVie
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_categories) {
-            finish();
+        if (id == R.id.nav_recipe_list) {
+            updateFragment(CategoryFragment.newInstance(categoryTitle));
         }
         else if(id == R.id.nav_favorites) {
             updateFragment(new FavoritesFragment());

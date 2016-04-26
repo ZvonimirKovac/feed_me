@@ -22,23 +22,23 @@
             android:id="@+id/categoryChooser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/new_recipe_fragment_horizontal_margin"
-            android:layout_marginTop="@dimen/new_recipe_fragment_horizontal_margin" />
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp" />
 
         <RelativeLayout
             android:id="@+id/ingredientsWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/new_recipe_fragment_horizontal_margin">
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/newRecipeIngredientsHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/new_recipe_fragment_horizontal_margin"
+                android:layout_marginLeft="10dp"
                 android:text="Sastojci:"
-                android:textSize="@dimen/new_recipe_fragment_text_view_size" />
+                android:textSize="18sp" />
 
 
             <android.support.design.widget.FloatingActionButton
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="@dimen/new_recipe_fragment_horizontal_margin"
+                android:layout_marginRight="10dp"
                 android:src="@android:drawable/ic_input_add" />
 
         </RelativeLayout>
@@ -57,23 +57,23 @@
             android:id="@+id/newRecipeIngredientsHolder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/new_recipe_fragment_horizontal_margin"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical" />
 
         <RelativeLayout
             android:id="@+id/instructionsWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/new_recipe_fragment_horizontal_margin">
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/newRecipeInstructionsHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/new_recipe_fragment_horizontal_margin"
+                android:layout_marginLeft="10dp"
                 android:text="Priprema:"
-                android:textSize="@dimen/new_recipe_fragment_text_view_size" />
+                android:textSize="10dp" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/addInsturctionsButton"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="@dimen/new_recipe_fragment_horizontal_margin"
+                android:layout_marginRight="10dp"
                 android:src="@android:drawable/ic_input_add" />
 
         </RelativeLayout>

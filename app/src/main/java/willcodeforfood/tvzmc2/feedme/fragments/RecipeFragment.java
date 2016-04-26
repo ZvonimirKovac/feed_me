@@ -6,26 +6,27 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.ValueEventListener;
 import com.firebase.client.utilities.Base64;
 
 import java.io.IOException;
-import java.util.List;
 
 import willcodeforfood.tvzmc2.feedme.R;
 import willcodeforfood.tvzmc2.feedme.models.Recipe;
@@ -131,6 +132,8 @@ public class RecipeFragment extends Fragment {
             tv.setTextColor(ContextCompat.getColor(getContext(), R.color.recipe_screen_text_color));
             tv.setTypeface(Typeface.DEFAULT_BOLD);
 
+            registerForContextMenu(tv);
+
             mIngredientsHolder.addView(tv);
         }
 
@@ -148,5 +151,25 @@ public class RecipeFragment extends Fragment {
 
             mInstructionsHolder.addView(tv);
         }
+
     }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+        super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.context_menu_add) {
+            Toast.makeText(getContext(), "Dodajem sastojak ...", Toast.LENGTH_SHORT).show();
+            
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
 }

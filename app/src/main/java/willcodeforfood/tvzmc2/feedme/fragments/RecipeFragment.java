@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ import com.firebase.client.ValueEventListener;
 import com.firebase.client.utilities.Base64;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import willcodeforfood.tvzmc2.feedme.R;
 import willcodeforfood.tvzmc2.feedme.models.Recipe;
@@ -37,6 +40,7 @@ import willcodeforfood.tvzmc2.feedme.models.Recipe;
 public class RecipeFragment extends Fragment {
     public static final String RECIPE_ARG = "willcodeforfood.tvzmc2.feedme.fragments.RECIPE_ARG";
 
+    private List<String> shoppingListIngredients;
     private Firebase mFirebase;
     private Recipe mRecipe;
 
@@ -44,6 +48,8 @@ public class RecipeFragment extends Fragment {
     private ImageView mRecipeImage;
     private LinearLayout mIngredientsHolder;
     private LinearLayout mInstructionsHolder;
+
+
 
     public RecipeFragment() {
         // Required empty public constructor
@@ -138,7 +144,7 @@ public class RecipeFragment extends Fragment {
         }
 
         for (String instruction : mRecipe.getInstructions()) {
-            TextView tv = new TextView(getContext());
+            final TextView tv = new TextView(getContext());
             tv.setText(instruction);
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
@@ -149,6 +155,13 @@ public class RecipeFragment extends Fragment {
             tv.setTextColor(ContextCompat.getColor(getContext(), R.color.recipe_screen_text_color));
             tv.setTypeface(Typeface.DEFAULT_BOLD);
 
+            tv.onTextContextMenuItem(R.id.context_menu_add);
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    tv.showContextMenu();
+                }
+            });
             mInstructionsHolder.addView(tv);
         }
 
@@ -164,9 +177,18 @@ public class RecipeFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        TextView tv = (TextView) info.targetView;
+
         if(item.getItemId() == R.id.context_menu_add) {
             Toast.makeText(getContext(), "Dodajem sastojak ...", Toast.LENGTH_SHORT).show();
-            
+
+            if(shoppingListIngredients == null){
+                shoppingListIngredients = new ArrayList<>();
+            }
+
+            shoppingListIngredients.add(tv.getText().toString());
+            System.out.println(tv.getText().toString());
         }
 
         return super.onContextItemSelected(item);

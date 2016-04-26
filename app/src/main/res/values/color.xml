@@ -15,4 +15,9 @@
     <color name="recipe_screen_text_color">#cdeae8</color>
     <color name="recipe_screen_background">#eceff1</color>
 
+    <!-- FavoritesFragment -->
+    <color name="favorites_background_color">#eceff1</color>
+    <color name="favorites_item_background_color">#cfd8dc</color>
+    <color name="favorites_item_text_view_color">#51646d</color>
+
 </resources>

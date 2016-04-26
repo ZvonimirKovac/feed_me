@@ -8,8 +8,8 @@
         android:id="@+id/shoppingListItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+        android:paddingTop="@dimen/shopping_item_padding"
+        android:paddingBottom="@dimen/shopping_item_padding"
         android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-        android:textSize="14sp" />
+        android:textSize="@dimen/shopping_item_text_size" />
 </LinearLayout>
